@@ -33,7 +33,11 @@ granite_dep = dependency('granite', version: '>=5.4.0')
 cc = meson.get_compiler('c')
 m_dep = cc.find_library('m', required : false)
 
-libwingpanel_dep = dependency('wingpanel-2.0')
+ libwingpanel_dep = dependency('wingpanel-2.0',required : false)
+ if not libwingpanel_dep.found()
+      libwingpanel_dep = dependency('wingpanel',required : true)
+    endif
+
 wingpanel_indicatorsdir = libwingpanel_dep.get_pkgconfig_variable('indicatorsdir', define_variable: ['libdir', libdir])
 
 subdir('lib')
